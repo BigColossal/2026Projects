@@ -19,3 +19,6 @@ class Renderer:
         paddle_x, paddle_y = paddle.pos
         paddle_rect = (paddle_x, paddle_y, paddle.width, paddle.height)
         self.screen.fill(paddle.color, paddle_rect)
+
+    def fill_ball(self, ball):
+        pg.draw.circle(self.screen, ball.color, ball.pos, ball.radius)
