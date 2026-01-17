@@ -1,5 +1,5 @@
 import pygame as pg
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, BALL_INITIAL_SPEED
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, BALL_INITIAL_SPEED, USER_WIN, USER_LOSS
 from random import randint
 import math
 
@@ -53,6 +53,14 @@ class Ball:
             return
         else:
             self.hit_wall = False
+
+    def check_win_condition(self):
+        if (self.pos.x <= 0):
+            event = pg.event.Event(USER_LOSS)
+            pg.event.post(event)
+        elif (self.pos.x >= SCREEN_WIDTH):
+            event = pg.event.Event(USER_WIN)
+            pg.event.post(event)
     
     def pong_bounce(self, paddle):
         self.speed += 0.5

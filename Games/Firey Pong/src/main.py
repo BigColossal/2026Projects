@@ -1,12 +1,12 @@
 import pygame as pg
-from constants import FPS, SCREEN_WIDTH, SCREEN_HEIGHT, PLAYER_MOVEMENT_SPEED
+from constants import FPS, SCREEN_WIDTH, SCREEN_HEIGHT, PLAYER_MOVEMENT_SPEED, USER_WIN, USER_LOSS
 from renderer import Renderer
 from paddles import Paddle
 from ball import Ball
 
 pg.init()
 
-def initalize_game():
+def initialize_game():
     player_paddle = Paddle(player=True)
     enemy_paddle = Paddle()
     ball = Ball()
@@ -29,6 +29,7 @@ def update(paddles: list[Paddle], ball: Ball):
         if ball.check_paddle_collision([paddle.pos[0], paddle.pos[1], paddle.width, paddle.height]):
             ball.pong_bounce(paddle)
     ball.check_wall_collision()
+    ball.check_win_condition()
     ball.move()
 
 def render(renderer: Renderer, paddles: list[Paddle], ball: Ball):
@@ -51,11 +52,15 @@ def main():
     running = True
     clock = pg.time.Clock()
     renderer = Renderer(SCREEN_WIDTH, SCREEN_HEIGHT)
-    player_paddle, enemy_paddle, ball = initalize_game()
+    player_paddle, enemy_paddle, ball = initialize_game()
     while running:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 running = False
+            elif event.type == USER_WIN:
+                player_paddle, enemy_paddle, ball = initialize_game()
+            elif event.type == USER_LOSS:
+                player_paddle, enemy_paddle, ball = initialize_game()
 
         update([player_paddle, enemy_paddle], ball)
         render(renderer, [player_paddle, enemy_paddle], ball)
