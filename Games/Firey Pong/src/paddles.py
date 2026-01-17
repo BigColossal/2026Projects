@@ -21,10 +21,11 @@ class Paddle:
         self.pos = pg.Vector2(x_pos, y_pos)
 
     def move(self, amount):
-        self.pos.y += amount
+        if self.pos.y > 0 and self.pos.y - self.height < SCREEN_HEIGHT:
+            self.pos.y = min(SCREEN_HEIGHT - self.height - 0.1, max(self.pos.y + amount, 0.1))
 
     def ai_move(self, ball):
         if ball.pos.y <= self.pos.y + (self.height / 2) - 5:
-            self.pos.y -= EASY_AI_SPEED
+            self.move(-EASY_AI_SPEED)
         elif ball.pos.y >= self.pos.y + (self.height / 2) + 5:
-            self.pos.y += EASY_AI_SPEED
+            self.move(EASY_AI_SPEED)

@@ -13,8 +13,6 @@ def initalize_game():
 
     return player_paddle, enemy_paddle, ball
 
-
-
 def update(paddles: list[Paddle], ball: Ball):
     player_paddle, enemy_paddle = paddles
     check_keyboard_input(player_paddle)
@@ -34,7 +32,7 @@ def update(paddles: list[Paddle], ball: Ball):
     ball.move()
 
 def render(renderer: Renderer, paddles: list[Paddle], ball: Ball):
-    renderer.fill_screen((30, 30, 30))  # dark gray background
+    renderer.fill_screen((10, 10, 10))
     for paddle in paddles:
         renderer.fill_paddle(paddle)
     renderer.fill_ball(ball)
@@ -62,7 +60,6 @@ def main():
         update([player_paddle, enemy_paddle], ball)
         render(renderer, [player_paddle, enemy_paddle], ball)
         clock.tick(FPS)
-
 
 if __name__ == "__main__":
     main()

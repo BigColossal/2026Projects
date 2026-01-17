@@ -79,6 +79,3 @@ class Ball:
 
         self.velocity.x = math.cos(angle) * self.speed * direction
         self.velocity.y = math.sin(angle) * self.speed
-
-
-
