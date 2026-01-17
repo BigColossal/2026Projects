@@ -15,13 +15,16 @@ def initalize_game():
 
 
 
-def update(paddles, ball: Ball):
+def update(paddles: list[Paddle], ball: Ball):
     player_paddle, enemy_paddle = paddles
     check_keyboard_input(player_paddle)
 
     for paddle in paddles:
-        if ball.last_hit_by == "player" and paddle.player:
-            continue
+        if ball.last_hit_by == "player":
+            if paddle.player:
+                continue
+            else:
+                paddle.ai_move(ball)
         elif ball.last_hit_by == "enemy" and not paddle.player:
             continue
         

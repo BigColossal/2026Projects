@@ -1,4 +1,4 @@
-from constants import SCREEN_HEIGHT, SCREEN_WIDTH
+from constants import SCREEN_HEIGHT, SCREEN_WIDTH, EASY_AI_SPEED
 import pygame as pg
 
 class Paddle:
@@ -22,3 +22,9 @@ class Paddle:
 
     def move(self, amount):
         self.pos.y += amount
+
+    def ai_move(self, ball):
+        if ball.pos.y <= self.pos.y + (self.height / 2) - 5:
+            self.pos.y -= EASY_AI_SPEED
+        elif ball.pos.y >= self.pos.y + (self.height / 2) + 5:
+            self.pos.y += EASY_AI_SPEED

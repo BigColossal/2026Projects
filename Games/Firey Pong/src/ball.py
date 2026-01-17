@@ -45,7 +45,6 @@ class Ball:
     def check_wall_collision(self):
         if ((self.pos.y - self.radius) <= 0 or (self.pos.y + self.radius) >= SCREEN_HEIGHT) and not self.hit_wall:
             self.velocity.y *= -1
-            print(self.velocity)
             if (self.pos.y - self.radius) <= 0:
                 self.pos.y = 0.1 + self.radius
             else:
@@ -56,6 +55,7 @@ class Ball:
             self.hit_wall = False
     
     def pong_bounce(self, paddle):
+        self.speed += 0.5
         if paddle.player:
             self.last_hit_by = "player"
         else:
