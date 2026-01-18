@@ -1,7 +1,7 @@
 [project]
 name = "firey pong"
 version = "0.1.0"
-description = "Add your description here"
+description = "The classic Pong game with some added aesthetics and features!"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
