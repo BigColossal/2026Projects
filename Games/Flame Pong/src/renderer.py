@@ -2,12 +2,12 @@ import pygame as pg
 from paddles import Paddle
 from points import PointSystem
 from constants import SCREEN_WIDTH
+from text import Text
 
 class Renderer:
     def __init__(self, width, height):
         self.width = width
         self.height = height
-        self.font = pg.font.SysFont('Arial', 32)
 
         self.initialize()
 
@@ -31,5 +31,7 @@ class Renderer:
         self.screen.blit(self.enemy_points_txt, (SCREEN_WIDTH - 150, 25))
 
     def update_points_text(self, pointSystem: PointSystem):
-        self.player_points_txt = self.font.render(str(pointSystem.player_points), True, (255, 255, 255))
-        self.enemy_points_txt = self.font.render(str(pointSystem.enemy_points), True, (255, 255, 255))
+        player_points_txt = Text(str(pointSystem.player_points), (255, 255, 255))
+        enemy_points_txt = Text(str(pointSystem.enemy_points), (255, 255, 255))
+        self.player_points_txt = player_points_txt.create_text()
+        self.enemy_points_txt = enemy_points_txt.create_text()
