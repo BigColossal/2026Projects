@@ -1,9 +1,10 @@
 from typing import Literal
 
-class mainMenu:
+class MainMenu:
     def __init__(self):
         self.buttons = []
         self.text = []
+        self.active = False
         self.currentUI: Literal["Start", "Settings", "Game Selection"] = "Start"
 
     def updateMenu(self):
@@ -13,6 +14,3 @@ class mainMenu:
             pass
         elif self.currentUI == "Settings":
             pass
-
-    def start_background_game(self):
-        pass

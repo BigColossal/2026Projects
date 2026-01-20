@@ -82,7 +82,5 @@ class Ball:
 
         # 4. build new velocity
         direction = -1 if self.velocity.x > 0 else 1
-        print((self.velocity.x, self.velocity.y))
         self.velocity.x = math.cos(angle) * self.speed * direction
         self.velocity.y = math.sin(angle) * self.speed
-        print((self.velocity.x, self.velocity.y))

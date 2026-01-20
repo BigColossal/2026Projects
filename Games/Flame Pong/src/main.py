@@ -4,10 +4,11 @@ from renderer import Renderer
 from paddles import Paddle
 from ball import Ball
 from points import PointSystem
+from mainMenu import MainMenu
 
 pg.init()
 
-def initialize_game():
+def initialize_game(menu: bool):
     player_paddle = Paddle(position="left")
     enemy_paddle = Paddle(position="right")
     ball = Ball()
@@ -15,7 +16,7 @@ def initialize_game():
 
     return player_paddle, enemy_paddle, ball, points
 
-def update(paddles: list[Paddle], ball: Ball):
+def update(paddles: list[Paddle], ball: Ball, mainMenu: MainMenu ):
     player1_paddle, player2_paddle = paddles
     check_keyboard_input(player1_paddle)
 
@@ -25,8 +26,11 @@ def update(paddles: list[Paddle], ball: Ball):
                 continue
             else:
                 paddle.ai_move(ball)
-        elif ball.last_hit_by == "right" and not paddle.position == "left":
-            continue
+        elif ball.last_hit_by == "right":
+            if paddle.position == "right":
+                continue
+            elif mainMenu.active:
+                paddle.ai_move(ball)
         
         if ball.check_paddle_collision([paddle.pos[0], paddle.pos[1], paddle.width, paddle.height]):
             ball.pong_bounce(paddle)
@@ -55,7 +59,8 @@ def main():
     running = True
     clock = pg.time.Clock()
     renderer = Renderer(SCREEN_WIDTH, SCREEN_HEIGHT)
-    player_paddle, enemy_paddle, ball, points = initialize_game()
+    main_menu = MainMenu()
+    player_paddle, enemy_paddle, ball, points = initialize_game(True)
     renderer.update_points_text(points)
     while running:
         for event in pg.event.get():
@@ -74,7 +79,7 @@ def main():
                 points.increase_enemy()
                 renderer.update_points_text(points)
 
-        update([player_paddle, enemy_paddle], ball)
+        update([player_paddle, enemy_paddle], ball, main_menu)
         render(renderer, [player_paddle, enemy_paddle], ball)
         clock.tick(FPS)
 
