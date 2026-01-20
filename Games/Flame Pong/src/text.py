@@ -5,6 +5,7 @@ class Text:
         self.font = pg.font.SysFont('Arial', 32)
         self.text = text
         self.color = color
+        self.text_object = self.create_text()
         
     
     def create_text(self):

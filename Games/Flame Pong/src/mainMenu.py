@@ -13,3 +13,6 @@ class mainMenu:
             pass
         elif self.currentUI == "Settings":
             pass
+
+    def start_background_game(self):
+        pass

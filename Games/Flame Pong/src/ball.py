@@ -18,17 +18,15 @@ class Ball:
     def initialize(self):
         self.pos = pg.Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
         ball_to_player = randint(1, 2)
-        if ball_to_player == 1:
-            ball_to_player = True
-        else:
-            ball_to_player = False
 
-        if ball_to_player:
-            self.speed += BALL_INITIAL_SPEED
-            self.velocity.x -= BALL_INITIAL_SPEED
+        if ball_to_player == 1:
+            self.speed = BALL_INITIAL_SPEED
+            self.velocity.x = -BALL_INITIAL_SPEED
+            self.velocity.y = 0
         else:
-            self.speed += BALL_INITIAL_SPEED
-            self.velocity.x += BALL_INITIAL_SPEED
+            self.speed = BALL_INITIAL_SPEED
+            self.velocity.x = BALL_INITIAL_SPEED
+            self.velocity.y = 0
     
     def move(self):
         self.pos += self.velocity
@@ -64,10 +62,10 @@ class Ball:
     
     def pong_bounce(self, paddle):
         self.speed += 0.5
-        if paddle.player:
-            self.last_hit_by = "player"
+        if paddle.position == "left":
+            self.last_hit_by = "left"
         else:
-            self.last_hit_by = "opponent"
+            self.last_hit_by = "right"
         # 1. distance from paddle center
         offset = self.pos.y - (paddle.pos.y + (paddle.height / 2))
 
@@ -84,6 +82,7 @@ class Ball:
 
         # 4. build new velocity
         direction = -1 if self.velocity.x > 0 else 1
-
+        print((self.velocity.x, self.velocity.y))
         self.velocity.x = math.cos(angle) * self.speed * direction
         self.velocity.y = math.sin(angle) * self.speed
+        print((self.velocity.x, self.velocity.y))

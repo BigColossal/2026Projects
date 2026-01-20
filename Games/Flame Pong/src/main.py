@@ -8,24 +8,24 @@ from points import PointSystem
 pg.init()
 
 def initialize_game():
-    player_paddle = Paddle(player=True)
-    enemy_paddle = Paddle()
+    player_paddle = Paddle(position="left")
+    enemy_paddle = Paddle(position="right")
     ball = Ball()
     points = PointSystem()
 
     return player_paddle, enemy_paddle, ball, points
 
 def update(paddles: list[Paddle], ball: Ball):
-    player_paddle, enemy_paddle = paddles
-    check_keyboard_input(player_paddle)
+    player1_paddle, player2_paddle = paddles
+    check_keyboard_input(player1_paddle)
 
     for paddle in paddles:
-        if ball.last_hit_by == "player":
-            if paddle.player:
+        if ball.last_hit_by == "left":
+            if paddle.position == "left":
                 continue
             else:
                 paddle.ai_move(ball)
-        elif ball.last_hit_by == "enemy" and not paddle.player:
+        elif ball.last_hit_by == "right" and not paddle.position == "left":
             continue
         
         if ball.check_paddle_collision([paddle.pos[0], paddle.pos[1], paddle.width, paddle.height]):
@@ -62,11 +62,15 @@ def main():
             if event.type == pg.QUIT:
                 running = False
             elif event.type == USER_WIN:
-                player_paddle, enemy_paddle, ball, _ = initialize_game()
+                player_paddle.initialize_positions()
+                enemy_paddle.initialize_positions()
+                ball.initialize()
                 points.increase_player()
                 renderer.update_points_text(points)
             elif event.type == USER_LOSS:
-                player_paddle, enemy_paddle, ball, _ = initialize_game()
+                player_paddle.initialize_positions()
+                enemy_paddle.initialize_positions()
+                ball.initialize()
                 points.increase_enemy()
                 renderer.update_points_text(points)
 

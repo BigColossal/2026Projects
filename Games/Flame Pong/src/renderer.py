@@ -24,14 +24,12 @@ class Renderer:
         self.screen.fill(paddle.color, paddle_rect)
 
     def fill_ball(self, ball):
-        pg.draw.circle(self.screen, ball.color, ball.pos, ball.radius)
+        pg.draw.circle(self.screen, ball.color, ball.pos, ball.radius, 2)
 
     def fill_points(self):
-        self.screen.blit(self.player_points_txt, (150, 25))
-        self.screen.blit(self.enemy_points_txt, (SCREEN_WIDTH - 150, 25))
+        self.screen.blit(self.player_points_txt.text_object, (150, 25))
+        self.screen.blit(self.enemy_points_txt.text_object, (SCREEN_WIDTH - 150, 25))
 
     def update_points_text(self, pointSystem: PointSystem):
-        player_points_txt = Text(str(pointSystem.player_points), (255, 255, 255))
-        enemy_points_txt = Text(str(pointSystem.enemy_points), (255, 255, 255))
-        self.player_points_txt = player_points_txt.create_text()
-        self.enemy_points_txt = enemy_points_txt.create_text()
+        self.player_points_txt = Text(str(pointSystem.player_points), (255, 255, 255))
+        self.enemy_points_txt = Text(str(pointSystem.enemy_points), (255, 255, 255))

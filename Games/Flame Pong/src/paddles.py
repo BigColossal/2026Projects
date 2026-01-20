@@ -1,9 +1,10 @@
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH, EASY_AI_SPEED
 import pygame as pg
+from typing import Literal
 
 class Paddle:
-    def __init__(self, player=False):
-        self.player = player
+    def __init__(self, position: Literal["left", "right"]):
+        self.position = position
         self.width = 15
         self.height = 80
         self.color = (255, 255, 255)
@@ -12,7 +13,7 @@ class Paddle:
         self.initialize_positions()
 
     def initialize_positions(self):
-        if self.player == True:
+        if self.position == "left":
             x_pos = 50
         else:
             x_pos = SCREEN_WIDTH - 50 - self.width
