@@ -1,7 +1,8 @@
 import pygame as pg
 
 class Backdrop:
-    def __init__(self, width, height, color, transparency):
+    def __init__(self, pos, width, height, color, transparency):
+        self.pos = pos
         self.width = width
         self.height = height
         self.color = color
