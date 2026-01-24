@@ -11,13 +11,12 @@ class Ball:
         self.radius = 10
         self.color = (255, 255, 255)
 
-        self.last_hit_by = None
-
         self.initialize()
 
     def initialize(self):
         self.pos = pg.Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
         ball_to_player = randint(1, 2)
+        self.last_hit_by = None
 
         if ball_to_player == 1:
             self.speed = BALL_INITIAL_SPEED
